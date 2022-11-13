@@ -44,7 +44,7 @@ function activate(context) {
    * @returns {number} - Number of lines selected.
    */
   function getNumberOfSelectedLines(editor) {
-    /** @type {{}} - Line numbers. */
+    /** @type {{}} - Line numbers dictionary. */
     const lines = {};
     /** @type {vscode.TextEditor.selections[]} - Selection object data. */
     const selections = editor ? editor.selections || [] : [];
@@ -54,30 +54,56 @@ function activate(context) {
     // For each cursor
     for (let i = 0, l = selections.length; i < l; i++) {
       const e = selections[i];
+      /** @type {number} Line number of the end cursor position. */
+      const endLine = e.end.line;
+      /** @type {number} Line number of the start cursor position. */
+      const startLine = e.start.line;
+      /** @type {number} Lines difference. `0` is a single line. */
+      const selectedLines = endLine - startLine;
+      /** @type {number} Characters difference. `0` is no characters. */
+      const selectedChars = e.end.character - e.start.character;
+      /** @type {number} Created index key of start line. */
+      let start = startLine;
+      /** @type {number} Created index key of end line. */
+      let end = endLine;
 
-      // If new line
-      if (lines[e.end.line] === undefined) {
-        // If 0, there is no multiline selection
-        const selectedLines = e.end.line - e.start.line;
-        const selectedChars = e.end.character - e.start.character;
+      // Single line
+      if (selectedLines === 0) {
+        // Normal cursor: (no selection)
+        if (selectedChars === 0) {
+          continue;
+        }
 
-        // Same line, highlighted characters
-        if (selectedLines === 0 && selectedChars > 0) {
+        // Single line selection
+        if (lines[endLine] === undefined) {
           total++;
-          lines[e.end.line] = true;
-        }
-        // Multiple lines highlighted
-        else if (selectedLines > 0) {
-          total += selectedLines + 1;
-          lines[e.end.line] = true;
-        }
-
-        // Don't include line with cursor position at beginning
-        // Important due to highlight wrapping behaviour
-        if (e.end.character === 0 && total > 0) {
-          total--;
+          lines[endLine] = true;
+          continue;
         }
       }
+
+      // Multiple lines
+      switch (true) {
+        // Seperate lines
+        case lines[startLine] === undefined && lines[endLine] === undefined:
+          total++;
+          break;
+        // Share line with previous start
+        case lines[startLine] === undefined:
+          end--;
+      }
+
+      // Account for trailing highlight wrapping behaviour
+      if (e.end.character === 0) {
+        total--;
+        end--;
+      }
+
+      // Update total
+      total += selectedLines;
+      // Update dictionary with selected lines
+      lines[start] = true;
+      lines[end] = true;
     }
 
     // Return the total number of selected lines
