@@ -1,6 +1,6 @@
 {
   "name": "lines-status-bar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Display active file line information.",
   "displayName": "Lines Status Bar",
   "icon": "img/icon.png",
@@ -19,10 +19,12 @@
     "onStartupFinished"
   ],
   "contributes": {
-    "commands": [{
-      "command": "lines-status-bar.lines",
-      "title": "Lines Status Bar"
-    }]
+    "commands": [
+      {
+        "command": "lines-status-bar.lines",
+        "title": "Lines Status Bar"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
