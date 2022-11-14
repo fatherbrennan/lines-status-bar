@@ -1,6 +1,6 @@
 {
   "name": "lines-status-bar",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Display active file line information.",
   "displayName": "Lines Status Bar",
   "icon": "img/icon.png",
@@ -19,7 +19,38 @@
     "onStartupFinished"
   ],
   "contributes": {
-    "commands": []
+    "commands": [],
+    "configuration": {
+      "title": "Lines Status Bar",
+      "properties": {
+        "linesStatusBar.settings.showSelectedFromTwoLines": {
+          "category": "Settings",
+          "description": "Show 'selected' starting from 2 selected lines.",
+          "type": "boolean",
+          "default": false
+        },
+        "linesStatusBar.statusBarItem.alignment": {
+          "category": "Status Bar Item",
+          "description": "The alignment of the item.",
+          "type": "string",
+          "default": "right",
+          "enum": [
+            "right",
+            "left"
+          ],
+          "enumDescriptions": [
+            "Aligns the status bar item to the right of the status bar.",
+            "Aligns the status bar item to the left of the status bar."
+          ]
+        },
+        "linesStatusBar.statusBarItem.priority": {
+          "category": "Status Bar Item",
+          "description": "The priority of the item. Higher values mean the item should be shown more to the left.",
+          "type": "integer",
+          "default": 101
+        }
+      }
+    }
   },
   "scripts": {
     "lint": "eslint .",
