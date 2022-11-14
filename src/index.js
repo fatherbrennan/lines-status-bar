@@ -22,20 +22,29 @@ function activate(context) {
    * @returns {void}
    */
   function updateStatusBarItem() {
+    /** @type {vscode.window.activeTextEditor} - Active text editor object. */
     const e = vscode.window.activeTextEditor;
-    const n = e.document.lineCount;
-    const s = getNumberOfSelectedLines(e);
 
-    if (s > 0) {
-      // Show number of selected lines
-      statusBarItem.text = `Lines ${n} (${s} selected)`;
+    if (e) {
+      /** @type {number} - Positive integer of lines in active editor. */
+      const n = e.document.lineCount;
+      /** @type {number} - Positive integer. */
+      const s = getNumberOfSelectedLines(e);
+
+      if (s > 0) {
+        // Show number of selected lines
+        statusBarItem.text = `Lines ${n} (${s} selected)`;
+      } else {
+        // Show total number of lines
+        statusBarItem.text = `Lines ${n}`;
+      }
+
+      // Show in status bar
+      statusBarItem.show();
     } else {
-      // Show total number of lines
-      statusBarItem.text = `Lines ${n}`;
+      // Hide in status bar
+      statusBarItem.hide();
     }
-
-    // Show in status bar
-    statusBarItem.show();
   }
 
   /**
@@ -54,17 +63,17 @@ function activate(context) {
     // For each cursor
     for (let i = 0, l = selections.length; i < l; i++) {
       const e = selections[i];
-      /** @type {number} Line number of the end cursor position. */
+      /** @type {number} - Line number of the end cursor position. */
       const endLine = e.end.line;
-      /** @type {number} Line number of the start cursor position. */
+      /** @type {number} - Line number of the start cursor position. */
       const startLine = e.start.line;
-      /** @type {number} Lines difference. `0` is a single line. */
+      /** @type {number} - Lines difference. `0` is a single line. */
       const selectedLines = endLine - startLine;
-      /** @type {number} Characters difference. `0` is no characters. */
+      /** @type {number} - Characters difference. `0` is no characters. */
       const selectedChars = e.end.character - e.start.character;
-      /** @type {number} Created index key of start line. */
+      /** @type {number} - Created index key of start line. */
       let start = startLine;
-      /** @type {number} Created index key of end line. */
+      /** @type {number} - Created index key of end line. */
       let end = endLine;
 
       // Single line
