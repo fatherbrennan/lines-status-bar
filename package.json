@@ -19,12 +19,7 @@
     "onStartupFinished"
   ],
   "contributes": {
-    "commands": [
-      {
-        "command": "lines-status-bar.lines",
-        "title": "Lines Status Bar"
-      }
-    ]
+    "commands": []
   },
   "scripts": {
     "lint": "eslint .",
