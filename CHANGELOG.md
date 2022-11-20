@@ -2,6 +2,18 @@
 
 All notable changes to the "lines-status-bar" extension will be documented in this file.
 
+## [0.2.0] - 2022-11-14
+
+### Added
+
+- Configuration: `linesStatusBar.settings.showSelectedFromTwoLines`
+  - Option to only show selected lines once two or more lines are selected. Default: `false`.
+- Configuration: `linesStatusBar.statusBarItem.alignment`
+  - Option to change the alignment of the status bar item. Default: `right`.
+- Configuration: `linesStatusBar.statusBarItem.priority`
+  - Option to change the priority of the status bar item. Default: `101`.
+- Updated README GIF!
+
 ## [0.1.1] - 2022-11-13
 
 ### Fixed
