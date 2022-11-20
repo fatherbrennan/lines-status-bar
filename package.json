@@ -1,6 +1,6 @@
 {
   "name": "lines-status-bar",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Display active file line information.",
   "displayName": "Lines Status Bar",
   "icon": "img/icon.png",

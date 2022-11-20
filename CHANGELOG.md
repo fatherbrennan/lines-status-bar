@@ -2,6 +2,12 @@
 
 All notable changes to the "lines-status-bar" extension will be documented in this file.
 
+## [0.2.1] - 2022-11-21
+
+### Fixed
+
+- Fixed windows installation ENOENT Error.
+
 ## [0.2.0] - 2022-11-14
 
 ### Added
