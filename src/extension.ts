@@ -1,18 +1,12 @@
-// Imports
-const vscode = require('vscode');
-const LinesStatusBar = require('./LinesStatusBar');
+import * as vscode from 'vscode';
+import LinesStatusBar from './LinesStatusBar';
 
 /**
  * Lines Status Bar Extension.
  * @param {vscode.ExtensionContext} context Instance of utilities collection private to an extension.
  * @returns {void}
  */
-function activate(context) {
-  // Subscribe the status bar item
+export function activate(context: vscode.ExtensionContext): void {
+  // Subscribe status bar item
   context.subscriptions.push(new LinesStatusBar().item);
 }
-
-// Exports
-module.exports = {
-  activate,
-};

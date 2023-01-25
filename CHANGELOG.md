@@ -2,6 +2,16 @@
 
 All notable changes to the "lines-status-bar" extension will be documented in this file.
 
+## [0.3.0] - 2023-01-25
+
+### Changed
+
+- Migrate repository to TypeScript.
+
+### Added
+
+- Visual Studio Code support from version 1.50.0.
+
 ## [0.2.1] - 2022-11-21
 
 ### Fixed

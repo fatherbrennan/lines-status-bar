@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2020"],
+    "module": "CommonJS",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2015",
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true
+  },
+  "include": ["src"]
+}

@@ -1,16 +1,16 @@
 {
   "name": "lines-status-bar",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Display active file line information.",
   "displayName": "Lines Status Bar",
   "icon": "img/icon.png",
   "author": "fatherbrennan",
   "publisher": "fatherbrennan",
   "repository": "https://github.com/fatherbrennan/lines-status-bar",
-  "main": "src/index.js",
+  "main": "./dist/extension.js",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.73.0"
+    "vscode": "^1.50.0"
   },
   "categories": [
     "Other"
@@ -53,19 +53,30 @@
     }
   },
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
+    "compile-tests": "tsc -p . --outDir out",
+    "compile": "webpack",
+    "lint": "eslint src --ext ts",
+    "pack": "webpack --mode production --devtool hidden-source-map",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js",
+    "vscode:prepublish": "npm run pack",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "watch": "webpack --watch"
   },
   "devDependencies": {
-    "@types/vscode": "^1.73.0",
     "@types/glob": "^8.0.0",
-    "@types/mocha": "^10.0.0",
+    "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
-    "eslint": "^8.26.0",
+    "@types/vscode": "^1.50.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
-    "typescript": "^4.8.4",
-    "@vscode/test-electron": "^2.2.0"
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3",
+    "webpack-cli": "^5.0.0",
+    "webpack": "^5.75.0"
   }
 }
