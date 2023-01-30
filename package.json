@@ -1,6 +1,6 @@
 {
   "name": "lines-status-bar",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Display active file line information.",
   "displayName": "Lines Status Bar",
   "icon": "img/icon.png",
@@ -8,6 +8,7 @@
   "publisher": "fatherbrennan",
   "repository": "https://github.com/fatherbrennan/lines-status-bar",
   "main": "./dist/extension.js",
+  "browser": "./dist/web/extension.js",
   "license": "MIT",
   "engines": {
     "vscode": "^1.50.0"
@@ -54,13 +55,20 @@
   },
   "scripts": {
     "compile-tests": "tsc -p . --outDir out",
+    "compile-web": "webpack --config ./webpack-web.config.js",
     "compile": "webpack",
     "lint": "eslint src --ext ts",
     "pack": "webpack --mode production --devtool hidden-source-map",
+    "pack-web": "webpack --config ./webpack-web.config.js --mode production --devtool hidden-source-map",
+    "pretest-web": "npm run compile-web",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "run-browser-web": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+    "test-web": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
     "test": "node ./out/test/runTest.js",
+    "vscode:prepublish-web": "npm run pack-web",
     "vscode:prepublish": "npm run pack",
     "watch-tests": "tsc -p . -w --outDir out",
+    "watch-web": "webpack --config ./webpack-web.config.js --watch",
     "watch": "webpack --watch"
   },
   "devDependencies": {
@@ -77,6 +85,10 @@
     "ts-loader": "^9.4.1",
     "typescript": "^4.9.3",
     "webpack-cli": "^5.0.0",
-    "webpack": "^5.75.0"
+    "webpack": "^5.75.0",
+    "@types/webpack-env": "^1.18.0",
+    "@vscode/test-web": "^0.0.33",
+    "assert": "^2.0.0",
+    "process": "^0.11.10"
   }
 }
